@@ -1,7 +1,5 @@
 import IWorkerContext = monaco.worker.IWorkerContext;
 
-import * as graphqlService from 'graphql-languageservice';
-
 import {
   GraphQLLanguageService,
   GraphQLCache,
