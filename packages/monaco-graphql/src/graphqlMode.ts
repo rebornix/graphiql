@@ -48,7 +48,7 @@ export function setupMode(defaults: LanguageServiceDefaultsImpl): IDisposable {
   );
 
   let modeConfiguration = defaults.modeConfiguration;
-  defaults.onDidChange((newDefaults: LanguageServiceDefaultsImpl) => {
+  defaults.onDidChange((newDefaults) => {
     if (newDefaults.modeConfiguration !== modeConfiguration) {
       modeConfiguration = newDefaults.modeConfiguration;
       registerProviders();
@@ -66,7 +66,7 @@ function asDisposable(disposables: IDisposable[]): IDisposable {
 
 function disposeAll(disposables: IDisposable[]) {
   while (disposables.length) {
-    disposables.pop().dispose();
+    disposables.pop()?.dispose();
   }
 }
 

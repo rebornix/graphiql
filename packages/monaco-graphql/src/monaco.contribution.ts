@@ -10,8 +10,8 @@ export class LanguageServiceDefaultsImpl
   private _onDidChange = new Emitter<
     monaco.languages.graphql.LanguageServiceDefaults
   >();
-  private _diagnosticsOptions: monaco.languages.graphql.DiagnosticsOptions;
-  private _modeConfiguration: monaco.languages.graphql.ModeConfiguration;
+  private _diagnosticsOptions!: monaco.languages.graphql.DiagnosticsOptions;
+  private _modeConfiguration!: monaco.languages.graphql.ModeConfiguration;
   private _languageId: string;
 
   constructor(

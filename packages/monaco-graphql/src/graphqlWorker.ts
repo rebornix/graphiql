@@ -30,6 +30,11 @@ export class GraphQLWorker {
   }
   async doComplete(uri: string, position: Position): Promise<CompletionItem[]> {
     const query = this._getQueryText(uri);
+
+    if (query === null) {
+      return [];
+    }
+
     return this._languageService.getAutocompleteSuggestions(
       query,
       position,
@@ -45,7 +50,7 @@ export class GraphQLWorker {
 
   resetSchema(uri: string) {}
 
-  private _getQueryText(uri: string): string {
+  private _getQueryText(uri: string): string | null {
     // TODO@acao, rebornix
 
     const models = this._ctx.getMirrorModels();

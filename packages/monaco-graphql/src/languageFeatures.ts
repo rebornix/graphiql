@@ -17,42 +17,39 @@ export interface WorkerAccessor {
 // --- completion ------
 
 function fromPosition(position: Position): graphqlService.Position {
-  if (!position) {
-    return void 0;
-  }
   return { character: position.column - 1, line: position.lineNumber - 1 };
 }
 
-function fromRange(range: IRange): graphqlService.Range {
-  if (!range) {
-    return void 0;
-  }
-  return {
-    start: {
-      line: range.startLineNumber - 1,
-      character: range.startColumn - 1,
-    },
-    end: { line: range.endLineNumber - 1, character: range.endColumn - 1 },
-    containsPosition: pos => {
-      return monaco.Range.containsPosition(range, {
-        lineNumber: pos.line,
-        column: pos.character,
-      });
-    },
-  };
-}
+// function fromRange(range: IRange): graphqlService.Range {
+//   if (!range) {
+//     return void 0;
+//   }
+//   return {
+//     start: {
+//       line: range.startLineNumber - 1,
+//       character: range.startColumn - 1,
+//     },
+//     end: { line: range.endLineNumber - 1, character: range.endColumn - 1 },
+//     containsPosition: pos => {
+//       return monaco.Range.containsPosition(range, {
+//         lineNumber: pos.line,
+//         column: pos.character,
+//       });
+//     },
+//   };
+// }
 
-function toRange(range: graphqlService.Range): Range {
-  if (!range) {
-    return void 0;
-  }
-  return new Range(
-    range.start.line + 1,
-    range.start.character + 1,
-    range.end.line + 1,
-    range.end.character + 1,
-  );
-}
+// function toRange(range: graphqlService.Range): Range {
+//   if (!range) {
+//     return void 0;
+//   }
+//   return new Range(
+//     range.start.line + 1,
+//     range.start.character + 1,
+//     range.end.line + 1,
+//     range.end.character + 1,
+//   );
+// }
 
 export class CompletionAdapter
   implements monaco.languages.CompletionItemProvider {
@@ -92,7 +89,7 @@ export class CompletionAdapter
           documentation: entry.documentation,
           detail: entry.detail,
           range: wordRange,
-          kind: entry.kind,
+          kind: entry.kind || monaco.languages.CompletionItemKind.Method
         };
 
         return item;
